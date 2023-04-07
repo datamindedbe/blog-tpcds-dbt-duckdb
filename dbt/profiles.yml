@@ -1,0 +1,18 @@
+default:
+  outputs:
+    dev:
+      type: duckdb
+      path: /var/data/dbt.duckdb
+      schema: dbt
+      threads: 1
+      extensions:
+        - httpfs
+        - parquet
+      use_credential_provider: aws
+      external_root: "s3://datafy-dp-samples-ympfsg"
+    local:
+      type: duckdb
+      path: /tmp/dbt.duckdb
+      schema: dbt
+      threads: 1
+  target: dev

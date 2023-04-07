@@ -1,0 +1,10 @@
+dbt-duckdb==1.4.0
+dbt-duckdb[glue]==1.4.0
+dbt-core==1.4.0
+#0.7.0 contains an issue with writing data to s3
+duckdb==0.7.1
+boto3
+
+# extra features
+sqlfluff~=1.2.1
+
