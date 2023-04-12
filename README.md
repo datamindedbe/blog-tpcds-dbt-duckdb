@@ -5,13 +5,24 @@ This repository contains the tpcds queries inside a standard dbt project, which 
 ## Prerequisites
 
 ### Data 
-Use data generated using the [Databricks toolkit](https://github.com/databricks/tpcds-kit).
+The data is generated using the [Databricks toolkit](https://github.com/databricks/tpcds-kit) together with the [Databricks sql perf](https://github.com/databricks/spark-sql-perf).
+The resulting jars are added to a spark docker container following the instructions provided in [eks spark benchmark](https://github.com/aws-samples/eks-spark-benchmark) and the full setup can be seen in `data/Dockerfile`.
 
-#### Generate data local
-Follow the Setup as described in the [README](https://github.com/databricks/tpcds-kit#setup) of the Databricks toolkit and afterwards you can run the dsdgen commands.
+#### Generate data locally
+We use dsdgen of the databricks toolkit for generating the data. An example on how to use the resulting docker image:
 
-#### Generate data docker
-Use the dockerfile provided in `data/Dockerfile` and execute the following commands to generate the data on your locally.
+```shell
+docker build -f data/Dockerfile -t tpcds-benchmark .
+docker run -v /tmp/tpcds:/var/data -it sql-benchmark /opt/spark/bin/spark-submit --master "local[*]" --name somename \
+       --deploy-mode client --class com.amazonaws.eks.tpcds.DataGeneration local:///opt/spark/work-dir/eks-spark-benchmark-assembly-1.0.jar \ 
+       /var/data /opt/tpcds-kit/tools parquet 1 10 false false true # These are the application arguments required by the DataGeneration class: data location, path to tpcds toolkit, data format, scale factor, number partitions, create partitioned fact tables, shuffle to get partitions into single files, set logging to WARN 
+```
+
+The previous command generates all input data as parquet files with a scale factor of 1 and 10 partitions (For the benchmark we used 100 and 100 as values). If you want to generate more date, you should change the corresponding parameters.
+The data is written to `/var/data` in the docker container which is mounted under `/tmp/tpcds`.
+
+#### Generate data on eks
+The same Spark container can be used when generating data in eks. If you add a role to the pod, you can directly write data to a s3 path. 
 
 ## Execute the code
 
