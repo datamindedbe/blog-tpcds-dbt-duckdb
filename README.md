@@ -1,5 +1,7 @@
 # Tpcds-dbt-duckdb
 
+I created this repository for a blogpost, I wrote, explaining why Dbt and Duckdb are a good alternative for Spark.
+The blogpost can be found [here](https://medium.com/datamindedbe/use-dbt-and-duckdb-instead-of-spark-in-data-pipelines-9063a31ea2b5).
 This repository contains the tpcds queries inside a standard dbt project, which uses the [dbt-duckdb](https://github.com/jwills/dbt-duckdb) adapter. 
 
 ## Prerequisites
