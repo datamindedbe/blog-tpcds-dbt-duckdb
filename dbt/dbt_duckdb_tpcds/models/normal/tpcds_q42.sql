@@ -1,4 +1,4 @@
-{{ config(materialized='external', location='s3://datafy-dp-samples-ympfsg/tpcds-dbt-duckdb/q42_100G_result.parquet') }}
+
 
 WITH store_sales AS (
     select * from {{ source('external_source', 'store_sales') }}

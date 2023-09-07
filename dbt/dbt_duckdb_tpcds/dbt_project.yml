@@ -31,7 +31,5 @@ clean-targets:         # directories to be removed by `dbt clean`
 # using the `{{ config(...) }}` macro.
 models:
   dbt_duckdb_tpcds:
-    test:
-      +materialized: table
-    special:
-      +materialized: table
+    normal:
+      +materialized: external

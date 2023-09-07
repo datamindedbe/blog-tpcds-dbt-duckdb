@@ -9,7 +9,7 @@ default:
         - httpfs
         - parquet
       use_credential_provider: aws
-      external_root: "s3://datafy-dp-samples-ympfsg"
+      external_root: "s3://datafy-dp-samples-ympfsg/tpcds-dbt-duckdb"
     local:
       type: duckdb
       path: /tmp/dbt.duckdb

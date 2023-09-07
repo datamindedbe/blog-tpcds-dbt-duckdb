@@ -1,4 +1,4 @@
-{{ config(materialized='external', location='s3://datafy-dp-samples-ympfsg/tpcds-dbt-duckdb/q72_100G_result.parquet') }}
+
 
 WITH date_dim AS (
     select * from {{ source('external_source', 'date_dim') }}

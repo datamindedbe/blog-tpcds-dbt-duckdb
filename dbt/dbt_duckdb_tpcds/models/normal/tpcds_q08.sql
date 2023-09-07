@@ -1,4 +1,4 @@
-{{ config(materialized='external', location='s3://datafy-dp-samples-ympfsg/tpcds-dbt-duckdb/q08_100G_result.parquet') }}
+
 WITH store_sales AS (
     select * from {{ source('external_source', 'store_sales') }}
 ),
@@ -14,6 +14,7 @@ customer AS (
 customer_address AS (
     select * from {{ source('external_source', 'customer_address') }}
 )
+
 
 SELECT s_store_name,
        sum(ss_net_profit)
